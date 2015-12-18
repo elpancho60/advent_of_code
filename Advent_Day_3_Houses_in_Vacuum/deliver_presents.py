@@ -14,23 +14,38 @@ def main():
 
 def deliver_presents(directions):
   drop_offs = {}
-  x,y = 0,0
-  drop_offs[(x,y)] = 1
+  x,y   = 0,0
+  rx,ry = 0,0
+  sx,sy = 0,0
+  drop_offs[(x,y)] = 2
+  pos = 0
 
   for house in directions:
-    if house == '<':
-      x -= 1      
-    elif house == '>':
-      x += 1
-    elif house == '^':
-      y += 1
-    elif house == 'v':
-      y -= 1
+    if pos % 2 == 0:
+      sx,sy = direction(house,sx,sy)
+      x,y = sx,sy
+    else:
+
+      x,y = rx,ry
     
     if drop_offs.get((x,y)) == None:
       drop_offs[(x,y)] = 1
 
+    pos = pos + 1
+
   return len(drop_offs)
+
+def direction(house,x,y):
+  if house == '<':
+    x -= 1      
+  elif house == '>':
+    x += 1
+  elif house == '^':
+    y += 1
+  elif house == 'v':
+    y -= 1
+  
+  return x,y
 
 def get_input_file():
   with open('./day_3_input.txt', 'r') as f:
