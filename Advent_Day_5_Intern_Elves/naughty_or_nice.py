@@ -45,11 +45,12 @@ def contains_pair(w):
       return True  
 
 def does_it_repeat(w):
-  return True
-
+  for i in range(len(w)-2):
+    if w[i] == w[i+2]:
+      return True
+  
 def get_input_file():
-  #with open('./day_5_input.txt', 'r') as f:
-  with open('./day_5_test_input.txt', 'r') as f:
+  with open('./day_5_input.txt', 'r') as f:
     read_data = f.readlines()
 
   f.closed
