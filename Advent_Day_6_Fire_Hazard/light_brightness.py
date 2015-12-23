@@ -8,7 +8,7 @@ def main():
   for i in instructions:
     xmas_lights = step_thru(i, xmas_lights)
 
-  print(len([val for val in xmas_lights.values() if val]))
+  print(sum([val for val in xmas_lights.values() if val]))
 
 def get_input_file():
   with open('day_6_input.txt', 'r') as f:
@@ -26,12 +26,14 @@ def step_thru(instructions,xmas_lights):
 
   for x in range(startx,stopx+1):
     for y in range(starty,stopy+1):
-      if todo == 'off':
-        xmas_lights[(x,y)] = False 
+      bright = xmas_lights.get((x,y),0)
+
+      if todo == 'off' and bright > 0:
+        xmas_lights[(x,y)] = bright - 1
       elif todo == 'on':
-        xmas_lights[(x,y)] = True
+        xmas_lights[(x,y)] = bright + 1
       elif todo == 'toggle':
-        xmas_lights[(x,y)] = not xmas_lights.get((x,y),False)
+        xmas_lights[(x,y)] = bright + 2
 
   return xmas_lights
 
